@@ -14,6 +14,9 @@ describe('Signin Page Visual Test', () => {
         cy.intercept('POST', 'https://wa.appsflyer.com/events*', { statusCode: 204 });
     })
   it('should match the signin page snapshot', () => {
+    // Set viewport explicitly for consistency
+    cy.viewport(1280, 720)
+    
     // Visit the signin page
     cy.visit('/en/signin?ncr=1')
     
@@ -22,7 +25,19 @@ describe('Signin Page Visual Test', () => {
     
     // Wait for the page to be fully loaded and stable
     cy.get('body').should('be.visible')
-    cy.get('[test-id="almosafer-logo"]').parent().parent().parent().invoke("css", "position", "absolute");
+    
+    // Wait for any dynamic content to load (like footer)
+    cy.wait(1000)
+    
+    // Scroll to bottom to ensure footer is loaded
+    cy.scrollTo('bottom', { duration: 1000 })
+    
+    // Wait a bit more for any lazy-loaded content
+    cy.wait(500)
+    
+    // Scroll back to top
+    cy.scrollTo('top', { duration: 500 })
+    
     // Take a full page snapshot and compare with baseline
     cy.matchImageSnapshot('signin-page', {
       fullPage: true,

@@ -6,14 +6,19 @@
     "test": "cypress run",
     "test:open": "cypress open",
     "test:update-snapshots": "cypress run --env updateSnapshots=true",
-    "test:no-fail-on-diff": "cypress run --env failOnSnapshotDiff=false"
+    "test:no-fail-on-diff": "cypress run --env failOnSnapshotDiff=false",
+    "test:jenkins": "cypress run --config viewportWidth=1280,viewportHeight=720 --env jenkins=true"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "devDependencies": {
+    "@simonsmith/cypress-image-snapshot": "^10.0.2",
     "cypress": "^14.0.0",
-    "@simonsmith/cypress-image-snapshot": "^10.0.2"
+    "cypress-multi-reporters": "^2.0.5",
+    "mochawesome": "^7.1.3",
+    "mochawesome-merge": "^5.0.0",
+    "mochawesome-report-generator": "^6.2.0"
   }
 }
