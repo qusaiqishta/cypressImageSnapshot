@@ -7,35 +7,16 @@ module.exports = defineConfig({
       addMatchImageSnapshotPlugin(on)
     },
     baseUrl: 'https://next-staging.almosafer.com',
-    // Force viewport settings - these MUST be respected
     viewportWidth: 1280,
     viewportHeight: 720,
     screenshotOnRunFailure: true,
-    video: true,
-    // Additional viewport enforcement
-    chromeWebSecurity: false,
-    // Force specific browser settings
-    browser: 'electron',
-    // Environment-specific overrides
-    env: {
-      jenkins: process.env.JENKINS_URL ? true : false
-    },
-    // Override any default viewport settings
-    viewport: {
-      width: 1280,
-      height: 720
+    video: false,
+    reporter: 'mochawesome',
+    reporterOptions: {
+      reportDir: 'cypress/reports',
+      overwrite: false,
+      html: true,
+      json: true
     }
   },
-  // Global screenshot settings
-  screenshot: {
-    fullPage: true,
-    capture: 'fullPage'
-  },
-  // Force Electron browser settings
-  electron: {
-    viewport: {
-      width: 1280,
-      height: 720
-    }
-  }
 })
