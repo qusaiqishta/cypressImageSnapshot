@@ -1,0 +1,19 @@
+{
+  "reporterEnabled": "mochawesome",
+  "mochawesomeReporterOptions": {
+    "reportDir": "cypress/reports",
+    "quiet": true,
+    "overwrite": false,
+    "html": true,
+    "json": true,
+    "timestamp": true,
+    "reportTitle": "Cypress Visual Test Results",
+    "reportPageTitle": "Visual Test Comparison Report",
+    "embeddedScreenshots": true,
+    "inlineAssets": true,
+    "saveAllAttempts": true,
+    "code": false,
+    "charts": true,
+    "reportFilename": "visual-test-report"
+  }
+}

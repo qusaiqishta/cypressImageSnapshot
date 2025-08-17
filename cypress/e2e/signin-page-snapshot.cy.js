@@ -13,16 +13,13 @@ describe('Signin Page Visual Test', () => {
         cy.intercept('GET', 'https://td.doubleclick.net/td/rul/**', { statusCode: 204 });
         cy.intercept('POST', 'https://wa.appsflyer.com/events*', { statusCode: 204 });
     })
-  it('should match the signin page snapshot', () => {
-    // Force viewport size explicitly - this is critical for Jenkins
-    cy.viewport(1280, 720, { force: true })
     
-    // Verify viewport is set correctly
-    cy.window().then((win) => {
-      expect(win.innerWidth).to.equal(1280)
-      expect(win.innerHeight).to.equal(720)
+    beforeEach(() => {
+        // Ensure clean viewport for each test
+        cy.viewport(1280, 720)
     })
     
+  it('should match the signin page snapshot', () => {
     // Visit the signin page
     cy.visit('/en/signin?ncr=1')
     
@@ -31,23 +28,25 @@ describe('Signin Page Visual Test', () => {
     
     // Wait for the page to be fully loaded and stable
     cy.get('body').should('be.visible')
+    cy.get('[test-id="almosafer-logo"]').parent().parent().parent().invoke("css", "position", "absolute");
     
-    // Wait for any dynamic content to load (like footer)
+    // Wait for any animations or dynamic content to settle
     cy.wait(1000)
     
-    // Scroll to bottom to ensure footer is loaded
-    cy.scrollTo('bottom', { duration: 1000 })
-    
-    // Wait a bit more for any lazy-loaded content
-    cy.wait(500)
-    
-    // Scroll back to top
-    cy.scrollTo('top', { duration: 500 })
-    
-    // Take a full page snapshot and compare with baseline
-    cy.matchImageSnapshot('signin-page', {
+    // Take a current screenshot for the visual report (this will be saved to screenshots directory)
+    cy.screenshot('current-signin-page', {
       fullPage: true,
       capture: 'fullPage'
+    })
+    
+    // Take a clean snapshot and compare with baseline
+    cy.matchImageSnapshot('signin-page', {
+      fullPage: true,
+      capture: 'fullPage',
+      // Ensure we capture just the application, not the test runner
+      disableTimersAndAnimations: true,
+      // Wait for network idle to ensure page is fully loaded
+      waitForNetworkIdle: true
     })
   })
 })

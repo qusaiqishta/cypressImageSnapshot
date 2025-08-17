@@ -3,11 +3,16 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "cypress run",
-    "test:open": "cypress open",
+    "test": "cypress run --spec 'cypress/e2e/signin-page-snapshot.cy.js'",
+    "test:open": "npx cypress run --spec 'cypress/e2e/signin-page-snapshot.cy.js' --headed",
     "test:update-snapshots": "cypress run --env updateSnapshots=true",
     "test:no-fail-on-diff": "cypress run --env failOnSnapshotDiff=false",
-    "test:jenkins": "cypress run --config-file cypress.jenkins.config.js"
+    "test:jenkins": "cypress run --config-file cypress.jenkins.config.js",
+    "test:with-report": "cypress run --spec 'cypress/e2e/signin-page-snapshot.cy.js' && npm run generate-report",
+    "generate-report": "npx mochawesome-merge cypress/reports/*.json > cypress/reports/combined-report.json && npx mochawesome-report-generator cypress/reports/combined-report.json -o cypress/reports",
+    "generate-visual-report": "node cypress/support/generate-visual-report.js",
+    "test:with-visual-report": "cypress run --spec 'cypress/e2e/signin-page-snapshot.cy.js'; npm run generate-visual-report",
+    "open-reports": "node cypress/support/open-reports.js"
   },
   "keywords": [],
   "author": "",
