@@ -20,7 +20,13 @@ describe('Signin Page Visual Test', () => {
     // Wait for the page to load completely
     cy.wait(2000)
     
-    // Take a snapshot and compare with baseline
-    cy.matchImageSnapshot('signin-page')
+    // Wait for the page to be fully loaded and stable
+    cy.get('body').should('be.visible')
+    cy.get('[test-id="almosafer-logo"]').parent().parent().parent().invoke("css", "position", "absolute");
+    // Take a full page snapshot and compare with baseline
+    cy.matchImageSnapshot('signin-page', {
+      fullPage: true,
+      capture: 'fullPage'
+    })
   })
 })
