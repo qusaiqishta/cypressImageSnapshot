@@ -7,7 +7,7 @@
     "test:open": "cypress open",
     "test:update-snapshots": "cypress run --env updateSnapshots=true",
     "test:no-fail-on-diff": "cypress run --env failOnSnapshotDiff=false",
-    "test:jenkins": "cypress run --config viewportWidth=1280,viewportHeight=720 --env jenkins=true"
+    "test:jenkins": "cypress run --config-file cypress.jenkins.config.js"
   },
   "keywords": [],
   "author": "",

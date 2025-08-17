@@ -7,23 +7,24 @@ module.exports = defineConfig({
       addMatchImageSnapshotPlugin(on)
     },
     baseUrl: 'https://next-staging.almosafer.com',
-    // Force viewport settings - these MUST be respected
+    // Force viewport settings for Jenkins
     viewportWidth: 1280,
     viewportHeight: 720,
     screenshotOnRunFailure: true,
     video: true,
-    // Additional viewport enforcement
-    chromeWebSecurity: false,
-    // Force specific browser settings
+    // Force Electron browser
     browser: 'electron',
-    // Environment-specific overrides
-    env: {
-      jenkins: process.env.JENKINS_URL ? true : false
-    },
-    // Override any default viewport settings
+    // Override any default settings
+    chromeWebSecurity: false,
+    // Force viewport
     viewport: {
       width: 1280,
       height: 720
+    },
+    // Environment variables
+    env: {
+      jenkins: true,
+      updateSnapshots: false
     }
   },
   // Global screenshot settings
@@ -31,7 +32,7 @@ module.exports = defineConfig({
     fullPage: true,
     capture: 'fullPage'
   },
-  // Force Electron browser settings
+  // Force Electron settings
   electron: {
     viewport: {
       width: 1280,

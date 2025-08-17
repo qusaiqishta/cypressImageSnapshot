@@ -14,8 +14,14 @@ describe('Signin Page Visual Test', () => {
         cy.intercept('POST', 'https://wa.appsflyer.com/events*', { statusCode: 204 });
     })
   it('should match the signin page snapshot', () => {
-    // Set viewport explicitly for consistency
-    cy.viewport(1280, 720)
+    // Force viewport size explicitly - this is critical for Jenkins
+    cy.viewport(1280, 720, { force: true })
+    
+    // Verify viewport is set correctly
+    cy.window().then((win) => {
+      expect(win.innerWidth).to.equal(1280)
+      expect(win.innerHeight).to.equal(720)
+    })
     
     // Visit the signin page
     cy.visit('/en/signin?ncr=1')
